@@ -1,9 +1,12 @@
 import mysql.connector as connection
 import pandas as pd
 import numpy as np
+import contractions
 from unidecode import unidecode
 import re
 from bs4 import BeautifulSoup
+import spacy
+from nltk.corpus import stopwords
 
 
 def read_data():
@@ -55,6 +58,10 @@ def remove_slash(text):
     return re.sub(r'[\n,\b,\t]', '', text)
 
 
+# Removing contractions
+def remove_contractions(text):
+    return contractions.fix(text)
+
 # Removing non-alphanumerics:
 def remove_nonalpha(text):
     text = re.sub(r'[^\w]', ' ', text)
@@ -62,24 +69,48 @@ def remove_nonalpha(text):
     return text
 
 
+# Removing words with less words
+def remove_less_characters(text):
+    return re.sub(r'\b\w{1,2}\b','', text)
+
 # Unwanted spaces:
 def remove_space(text):
     return re.sub(r' +', ' ', text)
 
 
-#Cleaning the text
+# Cleaning the text
 def clean_data(df):
     df['text'] = df['text'].apply(remove_html_tags)
     df['text'] = df['text'].apply(transform_nonascii)
     df['text'] = df['text'].apply(remove_numbers)
     df['text'] = df['text'].apply(remove_links)
     df['text'] = df['text'].apply(remove_slash)
+    df['text'] = df['text'].apply(remove_contractions)
     df['text'] = df['text'].apply(remove_nonalpha)
+    df['text'] = df['text'].apply(remove_less_characters)
     df['text'] = df['text'].apply(remove_space)
     df['text'] = df['text'].str.lower()
 
     return df
     
+# Stop words removal
+def remove_stop_words(text):
+
+    removed_list = []
+
+    for token in text.split():
+
+        if token not in stopwords.words('english'):
+            removed_list.append(token)
+
+
+    return " ".join(removed_list)
+
+# Lemmatization
+def lemmatizer(text):
+    nlp = spacy.load('en_core_web_sm')
+    return " ".join([word.lemma_ for word in nlp(text)])
+
 
 if __name__ == '__main__':
     
@@ -89,4 +120,8 @@ if __name__ == '__main__':
     df_review = decode_string(df_review)
     # Clean the data
     df_review = clean_data(df_review)
+    # Remove stop_words
+    df_review['text'] = df_review['text'].apply(remove_stop_words)
+    # Lemmatization
+    df_review['text'] = df_review['text'].apply(lemmatizer) 
 
