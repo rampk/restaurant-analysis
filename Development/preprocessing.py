@@ -1,12 +1,9 @@
 # Importing required libraries
 import mysql.connector as connection
 import pandas as pd
-import numpy as np
 import contractions
-from unidecode import unidecode
 import re
 from bs4 import BeautifulSoup
-import spacy
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import CountVectorizer 
 import pickle
@@ -64,7 +61,6 @@ def remove_links(text):
 # Converting non-ascii
 def transform_nonascii(text):
     return ''.join(char for char in text if ord(char) < 128)
-    return unidecode(text)
 
 
 # Removing numbers
@@ -124,7 +120,6 @@ def remove_stop_words(text):
 
         if token not in stopwords.words('english'):
             removed_list.append(token)
-
 
     return " ".join(removed_list)
 
