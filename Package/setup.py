@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='restaurant_analysis',
-    version='0.0.2',
+    version='0.0.1',
     description='Sentiment analysis on restaurant review',
     url='https://github.com/rampk/restaurant-analysis',
     author='Ramprakash Pavithrakannan',

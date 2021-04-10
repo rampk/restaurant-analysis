@@ -15,3 +15,4 @@ class SentimentPredictor:
 
     def acceptance(self):
         self.acceptance_rate = sum(self.prediction)/len(self.prediction)
+        return self.acceptance_rate*100
