@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Page</title>
+
+
+</head>
+<body background="https://www.ict-solutions-events.com/wp-content/uploads/2020/03/abstract-light-technology-lines-art-background-and-space-vector.jpg">
+  <br>
+  <br>
+  <h2> The Acceptance Rate of the restaurant is {{ acceptance_rate }}
+  <h2> Sentiment Analysis of top 10 reviews of the restaurant are </h2>
+  <br>
+<table border = "1" cellpadding = "5" cellspacing = "5">
+    <tr>
+      <th> RESTAURANT REVIEW </th>
+      <th>   SENTIMENT VALUE     </th>
+    </tr>
+
+    {% for item in pred_table %}
+    <tr>
+        <td>{{ item[0] }}</td>
+        <td style="text-align:center">{{ item[1] }}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+</body>
+</html>

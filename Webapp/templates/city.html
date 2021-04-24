@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Page</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
+
+</head>
+<body>
+  <br>
+  <br>
+  <br>
+    <h1 style="color:white;"> Restaurants Analysis for Uber Eats</h1>
+<<form method="post">
+  {{ form.hidden_tag() }}
+<h2 style="color:white;">  {{ form.city_choice.label }} </h2>
+<div class="menu_bar">
+  <ul>
+  <div class"sub_menu_1">
+    <ul>
+  <li class"sub_menu_1">   {{ form.city_choice }} </li>
+    </ul>
+</div>
+  </ul>
+</div>
+  <br>
+        &emsp {{ form.submit() }}
+</form>
+</body>
+</html>
